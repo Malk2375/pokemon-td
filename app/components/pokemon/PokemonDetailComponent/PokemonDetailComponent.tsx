@@ -4,18 +4,18 @@ import { PokemonContext } from "~/contexts/pokemon/PokemonContext";
 import "./PokemonDetailComponent.css";
 
 export default function PokemonDetailComponent() {
-  const { name } = useParams();
+  const { pokemonName } = useParams();
   const { fetchPokemonDetails } = useContext(PokemonContext);
   const [pokemon, setPokemon] = useState<any | null>(null);
 
   useEffect(() => {
-    if (!pokemon && name) {
+    if (pokemonName) {
       (async () => {
-        const detail = await fetchPokemonDetails(name);
+        const detail = await fetchPokemonDetails(pokemonName);
         if (detail) setPokemon(detail);
       })();
     }
-  }, [name, pokemon]);
+  }, [pokemonName]);
 
   if (!pokemon) return <p>Chargement des détails...</p>;
 
