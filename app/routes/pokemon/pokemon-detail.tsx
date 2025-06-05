@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, NavLink } from "react-router";
-import { usePokemonContext } from "~/contexts/pokemon/PokemonContext";
+import { PokemonContext } from "~/contexts/pokemon/PokemonContext";
 
 export default function PokemonDetail() {
   const { pokemonName } = useParams<{ pokemonName: string }>();
-  const { selectedPokemon, fetchPokemonDetails } = usePokemonContext();
+  const { selectedPokemon, fetchPokemonDetails } = useContext(PokemonContext);
 
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);

@@ -1,54 +1,31 @@
 import { useContext, useEffect, useState } from "react";
-import { usePokemonContext } from "~/contexts/pokemon/PokemonContext";
+import { useParams } from "react-router";
+import { PokemonContext } from "~/contexts/pokemon/PokemonContext";
 import "./PokemonDetailComponent.css";
 
-interface Props {
-  name: string;
-}
-
-interface PokemonDetails {
-  name: string;
-  sprite: string;
-  types: string[];
-  abilities: string[];
-}
-
-export default function PokemonDetailComponent({ name }: Props) {
-  const { fetchPokemonDetails } = usePokemonContext();
-  const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
+export default function PokemonDetailComponent() {
+  const { name } = useParams();
+  const { fetchPokemonDetails } = useContext(PokemonContext);
+  const [pokemon, setPokemon] = useState<any | null>(null);
 
   useEffect(() => {
-    if (!pokemon) {
-      (async function fetchDetails() {
-        const details = await fetchPokemonDetails(name);
-        if (details !== undefined && details !== null) {
-          setPokemon(details);
-        }
+    if (!pokemon && name) {
+      (async () => {
+        const detail = await fetchPokemonDetails(name);
+        if (detail) setPokemon(detail);
       })();
     }
-  }, [pokemon]);
+  }, [name, pokemon]);
 
-  if (!pokemon) return <p>Chargement des détails du Pokémon...</p>;
+  if (!pokemon) return <p>Chargement des détails...</p>;
 
   return (
     <section>
       <article>
-        <h2>Détails de {pokemon.name}</h2>
+        <h2>{pokemon.name}</h2>
         <img src={pokemon.sprite} alt={pokemon.name} />
-        <table>
-          <thead>
-            <tr>
-              <th>Types</th>
-              <th>Capacités</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{pokemon.types.join(", ")}</td>
-              <td>{pokemon.abilities.join(", ")}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p><strong>Types :</strong> {pokemon.types.join(", ")}</p>
+        <p><strong>Capacités :</strong> {pokemon.abilities.join(", ")}</p>
       </article>
     </section>
   );

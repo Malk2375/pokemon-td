@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 export default function HomeView() {
   return (
@@ -12,7 +12,7 @@ export default function HomeView() {
       <p>
         Cliquez sur le lien ci-dessous pour voir la liste des Pokémon :
       </p>
-      <Link to="/pokemon">Voir les Pokémon</Link>
+      <NavLink to="/pokemon">Voir les Pokémon</NavLink>
     </div>
   );
 }

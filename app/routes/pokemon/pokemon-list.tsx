@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { usePokemonContext } from "~/contexts/pokemon/PokemonContext";
+import { useEffect, useState, useContext } from "react";
+import { PokemonContext } from "~/contexts/pokemon/PokemonContext";
 
 export default function PokemonList() {
-  const { pokemons, fetchPokemons } = usePokemonContext();
+  const { pokemons, fetchPokemons } = useContext(PokemonContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function PokemonList() {
 
   if (isLoading) return <p>Chargement des Pokémons...</p>;
 
-  if (!pokemons.length) return <p>Aucun Pokémon trouvé.</p>;
+  if (!pokemons || pokemons.length === 0) return <p>Aucun Pokémon trouvé.</p>;
 
   return (
     <section>

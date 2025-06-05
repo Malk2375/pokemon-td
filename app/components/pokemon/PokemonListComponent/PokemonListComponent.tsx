@@ -1,27 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router";
-import { usePokemonContext } from "~/contexts/pokemon/PokemonContext";
+import { PokemonContext } from "~/contexts/pokemon/PokemonContext";
 import "./PokemonListComponent.css";
 
-interface Pokemon {
-    name: string;
-    url: string;
-}
-
 export default function PokemonListComponent() {
-    const { fetchPokemons } = usePokemonContext();
-    const [pokemons, setPokemons] = useState<Pokemon[] | null>(null);
+    const { fetchPokemons } = useContext(PokemonContext);
+    const [pokemons, setPokemons] = useState<any[] | null>(null);
 
     useEffect(() => {
         if (!pokemons) {
-        (async function fetchList() {
-            const result = await fetchPokemons();
-            if (Array.isArray(result)) setPokemons(result);
+        (async () => {
+            const list = await fetchPokemons();
+            if (list) setPokemons(list);
         })();
         }
     }, [pokemons]);
 
-    if (!pokemons) return <p>Chargement des Pokémons en cours...</p>;
+    if (!pokemons) return <p>Chargement...</p>;
 
     return (
         <section>
@@ -29,9 +24,7 @@ export default function PokemonListComponent() {
         <ul className="pokemon-list">
             {pokemons.map((pokemon) => (
             <li key={pokemon.name}>
-                <NavLink to={`/pokemon/${pokemon.name}`}>
-                {pokemon.name}
-                </NavLink>
+                <NavLink to={`/pokemon/${pokemon.name}`}>{pokemon.name}</NavLink>
             </li>
             ))}
         </ul>
