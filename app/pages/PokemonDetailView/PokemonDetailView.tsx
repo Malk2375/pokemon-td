@@ -54,7 +54,7 @@ function PokemonDetail() {
           <li key={ability}>{ability}</li>
         ))}
       </ul>
-      <NavLink to="/pokemon">← Retour à la liste</NavLink>
+      <NavLink to="/">← Retour à la liste</NavLink>
     </section>
   );
 }

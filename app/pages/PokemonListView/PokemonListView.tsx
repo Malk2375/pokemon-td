@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { usePokemonContext, PokemonProvider } from "~/contexts/pokemon/PokemonContext";
 import type { Pokemon } from "~/models/pokemon.interface";
+import { useParams, NavLink } from "react-router";
 
 export default function PokemonListView() {
   return (
@@ -28,6 +29,7 @@ function PokemonList() {
 
   return (
     <section>
+      <NavLink to="/">← Page principale</NavLink>
       <h2>Liste des Pokémons</h2>
       <ul>
         {pokemons.map((pokemon: Pokemon) => (
