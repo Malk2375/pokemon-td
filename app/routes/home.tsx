@@ -1,13 +1,18 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import React from "react";
+import { Link } from "react-router";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
-export default function Home() {
-  return <Welcome />;
+export default function HomeView() {
+  return (
+    <div>
+      <h1>Bienvenue sur l'application Pokémon !</h1>
+      <p>
+        Cette application vous permet de consulter la liste des Pokémon et
+        d'accéder aux détails de chaque Pokémon.
+      </p>
+      <p>
+        Cliquez sur le lien ci-dessous pour voir la liste des Pokémon :
+      </p>
+      <Link to="/pokemon">Voir les Pokémon</Link>
+    </div>
+  );
 }
